@@ -1,3 +1,9 @@
+.pad-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 30px;
+}
+
 .single-pad {
   display: flex;
   border: 2px solid #333;
@@ -14,8 +20,7 @@
   background-color: rgba(0, 128, 128, 0.185) !important;
 }
 
-.pad-container {
-  display: grid;
-  /* grid-gap: 1px; */
-  grid-template-columns: repeat(3, 1fr);
+.control-panel {
+  background-color: black;
+  display: flex;
 }
