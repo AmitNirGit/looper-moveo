@@ -6,10 +6,10 @@ export default function Pad() {
   const handleClick = () => {
     setTurnedOn(!turnedOn);
   };
+
   return (
     <div
-      className='single-pad'
-      style={{ backgroundColor: turnedOn ? "teal" : "grey" }}
+      className={turnedOn ? "single-pad-on" : "single-pad-off"}
       onClick={handleClick}>
       Pad
     </div>
