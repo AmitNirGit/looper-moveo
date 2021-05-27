@@ -1,4 +1,4 @@
-import React, { Children, useState } from "react";
+import React, { Children, useState, useEffect } from "react";
 import Pad from "./Pad";
 import { Howl, Howler } from "howler";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -24,55 +24,91 @@ import { GiGuitarBassHead, GiDrum, GiChurch, GiOilDrum } from "react-icons/gi";
 export default function Lopper() {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const soundTest = new Howl({
-    src: [RealDrums2],
+  //* creating howl sound files
+  const futureDrumsHowl = new Howl({
+    src: [FutureDrums],
     loop: true,
+    onend: () => {
+      console.log("ended");
+    },
+  });
+  const effectsHowl = new Howl({
+    src: [Effects],
+    loop: true,
+  });
+  const bassHowl = new Howl({
+    src: [Bass],
+    loop: true,
+  });
+  const guitarHowl = new Howl({
+    src: [Guitar],
+    //  loop: true,
+  });
+  const realDrumsHowl = new Howl({
+    src: [RealDrums],
+    //  loop: true,
+  });
+  const percussionsHowl = new Howl({
+    src: [Percussions],
+    //  loop: true,
+  });
+  const alienHowl = new Howl({
+    src: [Alien],
+    //  loop: true,
+  });
+  const realDrums2Howl = new Howl({
+    src: [RealDrums2],
+    //  loop: true,
+  });
+  const scarySoundHowl = new Howl({
+    src: [ScarySound],
+    //  loop: true,
   });
 
   //*pads state managment
   const [padsState, setPadsState] = useState([
     {
-      soundFile: FutureDrums,
+      soundFile: futureDrumsHowl,
       icon: FaDrumSteelpan,
       isOn: false,
     },
     {
-      soundFile: Effects,
+      soundFile: effectsHowl,
       icon: FaSignature,
       isOn: false,
     },
     {
-      soundFile: Bass,
+      soundFile: bassHowl,
       icon: GiGuitarBassHead,
       isOn: false,
     },
     {
-      soundFile: Guitar,
+      soundFile: guitarHowl,
       icon: FaGuitar,
       isOn: false,
     },
     {
-      soundFile: RealDrums,
+      soundFile: realDrumsHowl,
       icon: GiDrum,
       isOn: false,
     },
     {
-      soundFile: Percussions,
+      soundFile: percussionsHowl,
       icon: GiOilDrum,
       isOn: false,
     },
     {
-      soundFile: Alien,
+      soundFile: alienHowl,
       icon: FaRedditAlien,
       isOn: false,
     },
     {
-      soundFile: RealDrums2,
+      soundFile: realDrums2Howl,
       icon: FaDrum,
       isOn: false,
     },
     {
-      soundFile: ScarySound,
+      soundFile: scarySoundHowl,
       icon: GiChurch,
       isOn: false,
     },
@@ -84,16 +120,28 @@ export default function Lopper() {
       return pad.isOn;
     })
     .map((obj) => obj.soundFile);
+  console.log(loadedSounds);
+
+  useEffect(() => {
+    if (isPlaying) {
+      // pressPlay();
+    }
+  }, [loadedSounds]);
 
   //*play handler
   const pressPlay = () => {
     setIsPlaying(true);
-    soundTest.play();
+    loadedSounds.forEach((howl) => {
+      howl.play();
+    });
   };
 
   //*stop handler
   const pressStop = () => {
     setIsPlaying(false);
+    loadedSounds.forEach((howl) => {
+      howl.stop();
+    });
   };
 
   return (
