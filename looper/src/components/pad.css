@@ -1,16 +1,20 @@
 .pad-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px;
+  gap: 1%;
+  height: 90vh;
+  padding: 1%;
+  /* padding: 10px; */
 }
+/* background: radial-gradient(#0286865e, #0a4141); */
 
 .single-pad-on {
   display: flex;
-  background: radial-gradient(#0286865e, #0a4141);
-  border-radius: 10px;
-  width: 10vw;
-  height: 10vh;
-  margin: 5px;
+  background: radial-gradient(#cc13ccec, #720f6d);
+  border-radius: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 0 50px #fff, /* inner white */ inset 20px 0 50px #fd10fdec,
@@ -30,15 +34,19 @@
   display: flex;
   border: 2px solid rgb(51, 51, 51);
   background: radial-gradient(#cc13ccec, #720f6d);
-  border-radius: 10px;
-  width: 10vw;
-  height: 10vh;
-  margin: 5px;
+  border-radius: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
 }
 
 .control-panel {
-  background-color: black;
+  background-color: rgb(12, 12, 12);
+  height: 10vh;
   display: flex;
+}
+.looper-container {
+  max-height: 100vh;
 }
