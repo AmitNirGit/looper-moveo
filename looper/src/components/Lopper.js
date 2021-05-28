@@ -30,65 +30,65 @@ export default function Lopper() {
   const futureDrumsHowl = new Howl({
     src: [FutureDrums],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const effectsHowl = new Howl({
     src: [Effects],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const bassHowl = new Howl({
     src: [Bass],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const guitarHowl = new Howl({
     src: [Guitar],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const realDrumsHowl = new Howl({
     src: [RealDrums],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const percussionsHowl = new Howl({
     src: [Percussions],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const alienHowl = new Howl({
     src: [Alien],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const realDrums2Howl = new Howl({
     src: [RealDrums2],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
   const scarySoundHowl = new Howl({
     src: [ScarySound],
     // loop: true,
-    onend: () => {
-      setLoopEnd(!loopEnd);
-    },
+    // onend: () => {
+    //   setLoopEnd(!loopEnd);
+    // },
   });
 
   //*pads state managment
@@ -147,30 +147,27 @@ export default function Lopper() {
     .map((obj) => obj.soundFile);
 
   //*loop useeffect
-  const replay = () => {
-    setLoopEnd(false);
-    pressPlay();
-  };
-
   useEffect(() => {
     if (isPlaying) {
-      replay();
+      pressPlay();
     }
   }, [loopEnd]);
 
-  //*play handler
+  //*play handler stops current loop and starts a new one
   const pressPlay = () => {
-    playingSounds.forEach((howl) => {
+    playingSounds?.forEach((howl) => {
       howl.stop();
     });
-    // const loadedSounds = nextLoop;
+    nextLoop[0].once("end", () => {
+      setLoopEnd(!loopEnd);
+    });
     nextLoop.forEach((howl) => {
       howl.play();
     });
     setPlayingSounds(nextLoop);
     setIsPlaying(true);
   };
-
+  console.log();
   //*stop handler
   const pressStop = () => {
     setIsPlaying(false);

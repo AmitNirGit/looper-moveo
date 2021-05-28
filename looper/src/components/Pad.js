@@ -16,8 +16,12 @@ export default function Pad({ padData, padsArr, setPadsArr }) {
   };
 
   const preview = () => {
-    padData.soundFile.stop();
-    padData.soundFile.play();
+    if (padData.soundFile.playing()) {
+      padData.soundFile.stop();
+      return;
+    } else {
+      padData.soundFile.play();
+    }
   };
 
   return (
