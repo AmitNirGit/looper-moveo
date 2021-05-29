@@ -139,6 +139,27 @@ export default function Lopper() {
       isOn: false,
     },
   ]);
+
+  //* record bonus
+  let recordArr = [];
+  const recordArr = () => {
+    recordArr.push(playingSounds);
+  };
+
+  const playRecorded = () => {
+    if (!recordArr) {
+      console.log("no record found");
+      return;
+    }
+    playingSounds.forEach((sound) => {
+      sound.stop();
+    });
+    recordArr.forEach((soundsArr) => {
+      soundsArr.forEach((sound) => {
+        sound.play();
+      });
+    });
+  };
   //*upcoming loop on next cycle
   const nextLoop = padsState
     .filter((pad) => {
@@ -155,6 +176,9 @@ export default function Lopper() {
 
   //*play handler stops current loop and starts a new one
   const pressPlay = () => {
+    if (playingSounds == false && nextLoop == false) {
+      return;
+    }
     playingSounds?.forEach((howl) => {
       howl.stop();
     });
@@ -169,6 +193,12 @@ export default function Lopper() {
   };
   console.log();
   //*stop handler
+  const pressPause = () => {
+    setIsPlaying(false);
+    playingSounds.forEach((howl) => {
+      howl.pause();
+    });
+  };
   const pressStop = () => {
     setIsPlaying(false);
     playingSounds.forEach((howl) => {
