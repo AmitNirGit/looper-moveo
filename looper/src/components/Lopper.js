@@ -141,25 +141,25 @@ export default function Lopper() {
   ]);
 
   //* record bonus
-  let recordArr = [];
-  const recordArr = () => {
-    recordArr.push(playingSounds);
-  };
+  // let recordArr = [];
+  // const recordArr = () => {
+  //   recordArr.push(playingSounds);
+  // };
 
-  const playRecorded = () => {
-    if (!recordArr) {
-      console.log("no record found");
-      return;
-    }
-    playingSounds.forEach((sound) => {
-      sound.stop();
-    });
-    recordArr.forEach((soundsArr) => {
-      soundsArr.forEach((sound) => {
-        sound.play();
-      });
-    });
-  };
+  // const playRecorded = () => {
+  //   if (!recordArr) {
+  //     console.log("no record found");
+  //     return;
+  //   }
+  //   playingSounds.forEach((sound) => {
+  //     sound.stop();
+  //   });
+  //   recordArr.forEach((soundsArr) => {
+  //     soundsArr.forEach((sound) => {
+  //       sound.play();
+  //     });
+  //   });
+  // };
   //*upcoming loop on next cycle
   const nextLoop = padsState
     .filter((pad) => {
