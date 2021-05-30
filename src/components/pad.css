@@ -7,6 +7,7 @@
   padding: 1%;
   box-sizing: border-box;
 }
+
 .single-pad-off,
 .single-pad-on {
   display: flex;
@@ -14,14 +15,14 @@
   background: radial-gradient(#cc13ccec, #720f6d);
   border-radius: 20px;
   padding: 1%;
-  /* align-items: center; */
-  /* justify-content: center; */
 }
+
 .single-pad-on:hover,
 .single-pad-off:hover {
   cursor: pointer;
   background: radial-gradient(#fb42fbd7, #720f6d) !important;
 }
+
 .single-pad-on {
   box-shadow: inset 0 0 50px #fff, /* inner white */ inset 20px 0 50px #fd10fdec,
     /* inner left magenta short */ inset -10px 0 50px rgb(255, 0, 234),
@@ -34,18 +35,17 @@
 .single-pad-off {
   border: 2px solid rgb(51, 51, 51);
 }
+
 .pad-container > div > button {
   align-self: flex-end;
   margin-top: auto;
-  /* justify-self: flex-end; */
-  /* margin-left: auto; */
 }
+
 .pad-container > div > svg {
   box-sizing: unset;
   margin-left: 45%;
   margin-right: auto;
   margin-top: auto;
-  /* margin-bottom: auto; */
 }
 
 .control-panel {
@@ -55,9 +55,11 @@
   width: 100%;
   display: flex;
 }
+
 .play-stop {
   margin: auto;
 }
+
 .looper-container {
   max-height: 100vh;
 }

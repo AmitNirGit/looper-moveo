@@ -29,66 +29,30 @@ export default function Lopper() {
   //* creating howl sound files
   const futureDrumsHowl = new Howl({
     src: [FutureDrums],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const effectsHowl = new Howl({
     src: [Effects],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const bassHowl = new Howl({
     src: [Bass],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const guitarHowl = new Howl({
     src: [Guitar],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const realDrumsHowl = new Howl({
     src: [RealDrums],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const percussionsHowl = new Howl({
     src: [Percussions],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const alienHowl = new Howl({
     src: [Alien],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const realDrums2Howl = new Howl({
     src: [RealDrums2],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const scarySoundHowl = new Howl({
     src: [ScarySound],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
 
   //*pads state managment
@@ -140,41 +104,21 @@ export default function Lopper() {
     },
   ]);
 
-  //* record bonus
-  // let recordArr = [];
-  // const recordArr = () => {
-  //   recordArr.push(playingSounds);
-  // };
-
-  // const playRecorded = () => {
-  //   if (!recordArr) {
-  //     console.log("no record found");
-  //     return;
-  //   }
-  //   playingSounds.forEach((sound) => {
-  //     sound.stop();
-  //   });
-  //   recordArr.forEach((soundsArr) => {
-  //     soundsArr.forEach((sound) => {
-  //       sound.play();
-  //     });
-  //   });
-  // };
-  //*upcoming loop on next cycle
+  //* arr of the upcoming loop on next loop cycle
   const nextLoop = padsState
     .filter((pad) => {
       return pad.isOn;
     })
     .map((obj) => obj.soundFile);
 
-  //*loop useeffect
+  //* useeffect that acts like a reply
   useEffect(() => {
     if (isPlaying) {
       pressPlay();
     }
   }, [loopEnd]);
 
-  //*play handler stops current loop and starts a new one
+  //* play handler stops current loop and starts a new one
   const pressPlay = () => {
     if (playingSounds == false && nextLoop == false) {
       return;
@@ -191,14 +135,8 @@ export default function Lopper() {
     setPlayingSounds(nextLoop);
     setIsPlaying(true);
   };
-  console.log();
-  //*stop handler
-  const pressPause = () => {
-    setIsPlaying(false);
-    playingSounds.forEach((howl) => {
-      howl.pause();
-    });
-  };
+
+  //* stop handler
   const pressStop = () => {
     setIsPlaying(false);
     playingSounds.forEach((howl) => {
