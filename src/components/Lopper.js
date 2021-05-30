@@ -3,6 +3,7 @@ import Pad from "./Pad";
 import { Howl, Howler } from "howler";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import StopIcon from "@material-ui/icons/Stop";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import FutureDrums from "../loops/120_future_funk_beats_25.mp3";
 import Effects from "../loops/120_stutter_breakbeats_16.mp3";
 import Bass from "../loops/BassWarwickheavyfunkgrooveonE120BPM.mp3";
@@ -23,72 +24,38 @@ import { GiGuitarBassHead, GiDrum, GiChurch, GiOilDrum } from "react-icons/gi";
 
 export default function Lopper() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [playingSounds, setPlayingSounds] = useState([]);
+  const [recordedSounds, setRecordedSounds] = useState([]);
   const [loopEnd, setLoopEnd] = useState(false);
 
-  //* creating howl sound files
+  //* creating howl sound files for each sound
   const futureDrumsHowl = new Howl({
     src: [FutureDrums],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const effectsHowl = new Howl({
     src: [Effects],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const bassHowl = new Howl({
     src: [Bass],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const guitarHowl = new Howl({
     src: [Guitar],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const realDrumsHowl = new Howl({
     src: [RealDrums],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const percussionsHowl = new Howl({
     src: [Percussions],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const alienHowl = new Howl({
     src: [Alien],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const realDrums2Howl = new Howl({
     src: [RealDrums2],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
   const scarySoundHowl = new Howl({
     src: [ScarySound],
-    // loop: true,
-    // onend: () => {
-    //   setLoopEnd(!loopEnd);
-    // },
   });
 
   //*pads state managment
@@ -140,41 +107,21 @@ export default function Lopper() {
     },
   ]);
 
-  //* record bonus
-  // let recordArr = [];
-  // const recordArr = () => {
-  //   recordArr.push(playingSounds);
-  // };
-
-  // const playRecorded = () => {
-  //   if (!recordArr) {
-  //     console.log("no record found");
-  //     return;
-  //   }
-  //   playingSounds.forEach((sound) => {
-  //     sound.stop();
-  //   });
-  //   recordArr.forEach((soundsArr) => {
-  //     soundsArr.forEach((sound) => {
-  //       sound.play();
-  //     });
-  //   });
-  // };
-  //*upcoming loop on next cycle
+  //* arr of sounds with the upcoming loop on next cycle
   const nextLoop = padsState
     .filter((pad) => {
       return pad.isOn;
     })
     .map((obj) => obj.soundFile);
 
-  //*loop useeffect
+  //* every time a loop end it checks if keep playing
   useEffect(() => {
     if (isPlaying) {
       pressPlay();
     }
   }, [loopEnd]);
 
-  //*play handler stops current loop and starts a new one
+  //*play handler stops current loop and starts a new one with the new cycle of sounds
   const pressPlay = () => {
     if (playingSounds == false && nextLoop == false) {
       return;
@@ -190,20 +137,45 @@ export default function Lopper() {
     });
     setPlayingSounds(nextLoop);
     setIsPlaying(true);
+    if (isRecording) {
+      setRecordedSounds([...recordedSounds, nextLoop]); //!change to the function itself
+    }
   };
-  console.log();
+
   //*stop handler
-  const pressPause = () => {
-    setIsPlaying(false);
-    playingSounds.forEach((howl) => {
-      howl.pause();
-    });
-  };
   const pressStop = () => {
     setIsPlaying(false);
+    setIsRecording(false);
     playingSounds.forEach((howl) => {
       howl.stop();
     });
+  };
+
+  //* record bonus
+  const toggleRecord = () => {
+    if (isRecording) {
+      setIsRecording(false);
+    } else {
+      setRecordedSounds([]);
+      setIsRecording(true);
+    }
+  };
+
+  const playRecordedSounds = () => {
+    playingSounds?.forEach((howl) => {
+      howl.stop();
+    });
+
+    //*for loop for each recorded loop
+    for (let i = 0; i < recordedSounds.length; ) {
+      recordedSounds[i][0].once("end", () => {
+        i++;
+      });
+      recordedSounds[i].forEach((howl) => {
+        howl.play();
+      });
+    }
+    console.log("record ended");
   };
 
   return (
@@ -232,6 +204,17 @@ export default function Lopper() {
             onClick={pressStop}
             style={{ fontSize: "4rem", margin: "10px" }}
           />
+          <FiberManualRecordIcon
+            onClick={toggleRecord}
+            style={{
+              fontSize: "4rem",
+              margin: "10px",
+              color: isRecording && "red",
+            }}
+          />
+          {recordedSounds && (
+            <button onClick={playRecordedSounds}>play recorded</button>
+          )}
         </div>
       </div>
     </div>
